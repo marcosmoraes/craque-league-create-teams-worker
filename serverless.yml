@@ -1,0 +1,30 @@
+service: league-create-teams-worker
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  leagueCreateTeamsWorker:
+    handler: handler.handler
+    timeout: 600
+    name: league-create-teams-worker
+    events:
+      - sqs:
+          arn: arn:aws:sqs:us-east-1:880180928996:processar-players-statistics-team
+
+plugins:
+  - serverless-offline
+  - serverless-offline-sqs
+
+custom:
+  sqs:
+    port: 4568 # Porta para a simulação SQS
+    autoCreate: true # Criar automaticamente a fila SQS se não existir
+    inMemory: true # Usar fila em memória para a simulação
+    apiVersion: "2012-11-05" # Versão da API SQS
+
+serverless-offline:
+  httpPort: 3002 # Define a porta HTTP para o servidor offline
