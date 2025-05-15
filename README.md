@@ -36,6 +36,17 @@ MONGODB_PASSWORD=sua_senha
 DATABASE=nome_do_banco
 ```
 
+## 📚 Documentação
+
+A documentação completa do projeto está disponível na pasta `docs/`:
+
+- [Visão Geral do Projeto](docs/00-project-overview.md)
+- [Arquitetura do Sistema](docs/01-architecture.md)
+- [Componentes do Sistema](docs/02-components.md)
+- [Processo de Desenvolvimento](docs/03-development-process.md)
+- [Documentação da API](docs/04-api-documentation.md)
+- [Log de Progresso](docs/05-progress-log.md)
+
 ## 🏗️ Estrutura do Projeto
 
 ```
@@ -46,6 +57,7 @@ DATABASE=nome_do_banco
 ├── service/          # Serviços de negócio
 ├── use-cases/        # Casos de uso da aplicação
 ├── utils/            # Utilitários
+├── docs/             # Documentação do projeto
 ├── handler.js        # Ponto de entrada do Lambda
 └── serverless.yml    # Configuração do Serverless Framework
 ```
