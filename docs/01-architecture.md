@@ -1,70 +1,70 @@
-# Arquitetura do Sistema
+# System Architecture
 
-## Visão Geral da Arquitetura
+## Architecture Overview
 
-O sistema é construído como um worker serverless que processa mensagens de uma fila SQS para criar e atualizar times em ligas. A arquitetura segue um padrão de processamento assíncrono com as seguintes características:
+The system is built as a serverless worker that processes messages from an SQS queue to create and update teams in leagues. The architecture follows an asynchronous processing pattern with the following characteristics:
 
-1. **Processamento Assíncrono**
-   - Mensagens são recebidas via SQS
-   - Processamento em background
-   - Retry automático em caso de falhas
+1. **Asynchronous Processing**
+   - Messages are received via SQS
+   - Background processing
+   - Automatic retry on failures
 
-2. **Persistência de Dados**
-   - MongoDB como banco de dados principal
-   - Coleções separadas para times e estatísticas
-   - Índices otimizados para consultas frequentes
+2. **Data Persistence**
+   - MongoDB as the main database
+   - Separate collections for teams and statistics
+   - Optimized indexes for frequent queries
 
-3. **Escalabilidade**
-   - Funções Lambda para processamento
-   - Escalamento automático baseado em carga
-   - Timeout configurável por função
+3. **Scalability**
+   - Lambda functions for processing
+   - Automatic scaling based on load
+   - Configurable timeout per function
 
-## Componentes Principais
+## Main Components
 
 ### 1. AWS Lambda Function
 - **Runtime**: Node.js 18.x
-- **Timeout**: 600 segundos
-- **Memória**: Configurável
+- **Timeout**: 600 seconds
+- **Memory**: Configurable
 - **Handler**: `handler.handler`
 
 ### 2. SQS Queue
-- **Nome**: `processar-players-statistics-team`
-- **Tipo**: Standard Queue
-- **Retention**: 14 dias
-- **Visibility Timeout**: 900 segundos
+- **Name**: `processar-players-statistics-team`
+- **Type**: Standard Queue
+- **Retention**: 14 days
+- **Visibility Timeout**: 900 seconds
 
 ### 3. MongoDB
-- **Conexão**: URI via variáveis de ambiente
-- **Coleções**:
+- **Connection**: URI via environment variables
+- **Collections**:
   - `teams`
   - `player_statistics`
   - `leagues`
 
-## Fluxos de Processamento
+## Processing Flows
 
-### 1. Recebimento de Mensagem
+### 1. Message Reception
 ```mermaid
 sequenceDiagram
-    SQS->>Lambda: Mensagem recebida
-    Lambda->>MongoDB: Conecta ao banco
-    Lambda->>Lambda: Processa estatísticas
-    Lambda->>MongoDB: Atualiza dados
-    Lambda->>SQS: Confirma processamento
+    SQS->>Lambda: Message received
+    Lambda->>MongoDB: Connect to database
+    Lambda->>Lambda: Process statistics
+    Lambda->>MongoDB: Update data
+    Lambda->>SQS: Confirm processing
 ```
 
-### 2. Processamento de Estatísticas
-1. Recebe mensagem da fila
-2. Extrai dados do jogador
-3. Processa estatísticas
-4. Atualiza time na liga
-5. Confirma processamento
+### 2. Statistics Processing
+1. Receive message from queue
+2. Extract player data
+3. Process statistics
+4. Update team in league
+5. Confirm processing
 
-### 3. Tratamento de Erros
-- Retry automático em falhas
-- Logs detalhados no CloudWatch
-- Notificação de erros críticos
+### 3. Error Handling
+- Automatic retry on failures
+- Detailed logs in CloudWatch
+- Critical error notifications
 
-## Configurações de Infraestrutura
+## Infrastructure Configuration
 
 ### Serverless Framework
 ```yaml
@@ -76,34 +76,34 @@ provider:
   memorySize: 1024
 ```
 
-### Variáveis de Ambiente
+### Environment Variables
 ```env
-MONGODB_USERNAME=seu_usuario
-MONGODB_PASSWORD=sua_senha
-DATABASE=nome_do_banco
+MONGODB_USERNAME=your_username
+MONGODB_PASSWORD=your_password
+DATABASE=database_name
 ```
 
-## Monitoramento e Logs
+## Monitoring and Logs
 
 ### CloudWatch
-- Logs de execução
-- Métricas de performance
-- Alertas configuráveis
+- Execution logs
+- Performance metrics
+- Configurable alerts
 
-### Métricas Principais
-- Tempo de processamento
-- Taxa de sucesso
-- Erros por tipo
-- Uso de memória
+### Main Metrics
+- Processing time
+- Success rate
+- Errors by type
+- Memory usage
 
-## Segurança
+## Security
 
-### Autenticação
-- Credenciais MongoDB via variáveis de ambiente
-- IAM roles para AWS
-- Segurança em camadas
+### Authentication
+- MongoDB credentials via environment variables
+- IAM roles for AWS
+- Layered security
 
-### Dados
-- Criptografia em trânsito
-- Backup automático
-- Validação de dados 
+### Data
+- In-transit encryption
+- Automatic backup
+- Data validation 

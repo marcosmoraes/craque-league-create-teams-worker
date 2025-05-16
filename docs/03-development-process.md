@@ -1,142 +1,142 @@
-# Processo de Desenvolvimento
+# Development Process
 
-## Ambiente de Desenvolvimento
+## Development Environment
 
-### Pré-requisitos
-1. Node.js 18.x ou superior
+### Prerequisites
+1. Node.js 18.x or higher
 2. Serverless Framework CLI
-3. Conta AWS configurada
-4. MongoDB local ou remoto
+3. Configured AWS account
+4. Local or remote MongoDB
 5. Git
 
-### Configuração Inicial
-1. Clone o repositório
-2. Instale dependências:
+### Initial Setup
+1. Clone the repository
+2. Install dependencies:
 ```bash
 npm install
 ```
-3. Configure variáveis de ambiente:
+3. Configure environment variables:
 ```bash
 cp .env.example .env
 ```
-4. Edite o arquivo `.env` com suas credenciais
+4. Edit the `.env` file with your credentials
 
-## Fluxo de Desenvolvimento
+## Development Flow
 
-### 1. Setup do Projeto
-1. Criar branch de desenvolvimento
-2. Configurar ambiente local
-3. Instalar dependências
-4. Configurar variáveis de ambiente
-5. Testar conexão com MongoDB
+### 1. Project Setup
+1. Create development branch
+2. Configure local environment
+3. Install dependencies
+4. Configure environment variables
+5. Test MongoDB connection
 
-### 2. Desenvolvimento
-1. Criar branch para feature
-2. Implementar funcionalidade
-3. Adicionar testes
-4. Documentar código
-5. Revisar código
+### 2. Development
+1. Create feature branch
+2. Implement functionality
+3. Add tests
+4. Document code
+5. Review code
 
-### 3. Testes
-1. Testes unitários:
+### 3. Testing
+1. Unit tests:
 ```bash
 npm test
 ```
-2. Testes de integração:
+2. Integration tests:
 ```bash
 npm run test:integration
 ```
-3. Testes de carga:
+3. Load tests:
 ```bash
 npm run test:load
 ```
 
 ### 4. Code Review
-1. Revisar código
-2. Verificar cobertura de testes
-3. Validar documentação
-4. Aprovar mudanças
+1. Review code
+2. Check test coverage
+3. Validate documentation
+4. Approve changes
 
-### 5. Deploy
-1. Atualizar versão
-2. Fazer deploy:
+### 5. Deployment
+1. Update version
+2. Deploy:
 ```bash
 serverless deploy
 ```
-3. Verificar logs
-4. Monitorar métricas
+3. Check logs
+4. Monitor metrics
 
-## Padrões de Código
+## Code Standards
 
-### Estrutura de Arquivos
+### File Structure
 ```
-├── config/             # Configurações
-├── infraestructure/    # Infraestrutura
-├── model/             # Modelos
-├── repositories/      # Repositórios
-├── service/          # Serviços
-├── use-cases/        # Casos de uso
-├── utils/            # Utilitários
-└── tests/            # Testes
+├── config/             # Configurations
+├── infraestructure/    # Infrastructure
+├── model/             # Models
+├── repositories/      # Repositories
+├── service/          # Services
+├── use-cases/        # Use cases
+├── utils/            # Utilities
+└── tests/            # Tests
 ```
 
-### Convenções
-1. **Nomenclatura**
-   - camelCase para variáveis e funções
-   - PascalCase para classes
-   - UPPER_CASE para constantes
+### Conventions
+1. **Naming**
+   - camelCase for variables and functions
+   - PascalCase for classes
+   - UPPER_CASE for constants
 
-2. **Documentação**
-   - JSDoc para funções
-   - README.md em cada diretório
-   - Comentários explicativos
+2. **Documentation**
+   - JSDoc for functions
+   - README.md in each directory
+   - Explanatory comments
 
-3. **Testes**
-   - Testes unitários obrigatórios
-   - Mínimo 80% de cobertura
-   - Testes de integração
+3. **Testing**
+   - Required unit tests
+   - Minimum 80% coverage
+   - Integration tests
 
-## Processo de Deploy
+## Deployment Process
 
-### 1. Preparação
-1. Atualizar versão
-2. Atualizar changelog
-3. Revisar dependências
-4. Verificar configurações
+### 1. Preparation
+1. Update version
+2. Update changelog
+3. Review dependencies
+4. Verify configurations
 
-### 2. Deploy
-1. Deploy para staging:
+### 2. Deployment
+1. Deploy to staging:
 ```bash
 serverless deploy --stage staging
 ```
-2. Testes em staging
-3. Deploy para produção:
+2. Test in staging
+3. Deploy to production:
 ```bash
 serverless deploy --stage prod
 ```
 
-### 3. Monitoramento
-1. Verificar logs
-2. Monitorar métricas
-3. Validar funcionamento
-4. Documentar deploy
+### 3. Monitoring
+1. Check logs
+2. Monitor metrics
+3. Validate functionality
+4. Document deployment
 
-## Manutenção
+## Maintenance
 
-### 1. Monitoramento
-1. Logs no CloudWatch
-2. Métricas de performance
-3. Alertas configurados
+### 1. Monitoring
+1. CloudWatch logs
+2. Performance metrics
+3. Configured alerts
 4. Dashboards
 
 ### 2. Backup
-1. Backup diário do MongoDB
-2. Backup de configurações
-3. Versionamento de código
-4. Documentação atualizada
+1. Daily MongoDB backup
+2. Configuration backup
+3. Code versioning
+4. Updated documentation
 
-### 3. Atualizações
-1. Atualizar dependências
-2. Revisar segurança
-3. Otimizar performance
-4. Manter documentação 
+### 3. Updates
+1. Update dependencies
+2. Review security
+3. Optimize performance
+4. Maintain documentation 

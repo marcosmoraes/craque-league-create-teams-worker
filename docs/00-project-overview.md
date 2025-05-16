@@ -1,63 +1,63 @@
-# Visão Geral do Projeto
+# Project Overview
 
-## Propósito
-O League Create Teams Worker é um serviço serverless responsável por processar estatísticas de jogadores e criar times em uma liga. O serviço opera como um worker que processa mensagens de uma fila SQS, garantindo processamento assíncrono e escalável das operações.
+## Purpose
+The League Create Teams Worker is a serverless service responsible for processing player statistics and creating teams in a league. The service operates as a worker that processes messages from an SQS queue, ensuring asynchronous and scalable operations.
 
-## Tecnologias Principais
+## Main Technologies
 - **Node.js** (v18.x)
 - **Serverless Framework**
 - **AWS Lambda**
 - **AWS SQS**
 - **MongoDB**
-- **Express** (desenvolvimento local)
+- **Express** (local development)
 - **Axios**
 - **Dotenv**
 
-## Estrutura do Projeto
+## Project Structure
 ```
-├── config/             # Configurações do projeto
-├── infraestructure/    # Configurações de infraestrutura
-├── model/             # Modelos de dados
-├── repositories/      # Camada de acesso a dados
-├── service/          # Serviços de negócio
-├── use-cases/        # Casos de uso da aplicação
-├── utils/            # Utilitários
-├── handler.js        # Ponto de entrada do Lambda
-└── serverless.yml    # Configuração do Serverless Framework
+├── config/             # Project configurations
+├── infraestructure/    # Infrastructure settings
+├── model/             # Data models
+├── repositories/      # Data access layer
+├── service/          # Business services
+├── use-cases/        # Application use cases
+├── utils/            # Utilities
+├── handler.js        # Lambda entry point
+└── serverless.yml    # Serverless Framework configuration
 ```
 
-## Funcionalidades Principais
-1. Processamento assíncrono de estatísticas de jogadores
-2. Criação e atualização de times em ligas
-3. Integração com MongoDB para persistência de dados
-4. Processamento de mensagens via SQS
-5. Logs detalhados para monitoramento
+## Main Features
+1. Asynchronous processing of player statistics
+2. Creation and updating of teams in leagues
+3. MongoDB integration for data persistence
+4. SQS message processing
+5. Detailed monitoring logs
 
-## Ambiente de Desenvolvimento
-- Node.js 18.x ou superior
+## Development Environment
+- Node.js 18.x or higher
 - Serverless Framework CLI
-- Conta AWS configurada
-- MongoDB configurado
+- Configured AWS account
+- Configured MongoDB
 
-## Configuração
-O projeto utiliza variáveis de ambiente para configuração:
+## Configuration
+The project uses environment variables for configuration:
 - MONGODB_USERNAME
 - MONGODB_PASSWORD
 - DATABASE
 
-## Execução Local
+## Local Execution
 ```bash
 serverless offline
 ```
-O serviço estará disponível em `http://localhost:3002`
+The service will be available at `http://localhost:3002`
 
-## Deploy
+## Deployment
 ```bash
 serverless deploy
 ```
 
-## Monitoramento
-- Logs no CloudWatch
-- Métricas de execução
-- Status de processamento
-- Tempo de execução 
+## Monitoring
+- CloudWatch logs
+- Execution metrics
+- Processing status
+- Execution time 

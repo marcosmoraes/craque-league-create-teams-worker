@@ -1,118 +1,95 @@
 # League Create Teams Worker
 
-Este é um worker serverless responsável por processar estatísticas de jogadores e criar times em uma liga. O serviço é construído usando AWS Lambda e processa mensagens de uma fila SQS.
+A serverless service for processing player statistics and creating teams in leagues.
 
-## 🚀 Tecnologias Utilizadas
+## Description
 
-- **Node.js** (v18.x)
-- **Serverless Framework** - Para deploy e gerenciamento da infraestrutura
-- **AWS Lambda** - Para execução serverless
-- **AWS SQS** - Para processamento de mensagens em fila
-- **MongoDB** - Banco de dados para armazenamento dos dados
-- **Express** - Framework web para desenvolvimento local
-- **Axios** - Cliente HTTP para requisições
-- **Dotenv** - Gerenciamento de variáveis de ambiente
+The League Create Teams Worker is a serverless service built with AWS Lambda and Serverless Framework. It processes messages from an SQS queue to create and update teams in leagues based on player statistics.
 
-## 📋 Pré-requisitos
+## Technologies
 
-- Node.js 18.x ou superior
-- Serverless Framework CLI instalado globalmente
-- Conta AWS configurada
-- MongoDB configurado
+- Node.js 18.x
+- Serverless Framework
+- AWS Lambda
+- AWS SQS
+- MongoDB
+- Express
+- Axios
+- Dotenv
 
-## 🔧 Configuração do Ambiente
+## Installation
 
-1. Clone o repositório
-2. Instale as dependências:
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/league-create-teams-worker.git
+cd league-create-teams-worker
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Configure as variáveis de ambiente:
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-```
-MONGODB_USERNAME=seu_usuario
-MONGODB_PASSWORD=sua_senha
-DATABASE=nome_do_banco
-```
-
-## 📚 Documentação
-
-A documentação completa do projeto está disponível na pasta `docs/`:
-
-- [Visão Geral do Projeto](docs/00-project-overview.md)
-- [Arquitetura do Sistema](docs/01-architecture.md)
-- [Componentes do Sistema](docs/02-components.md)
-- [Processo de Desenvolvimento](docs/03-development-process.md)
-- [Documentação da API](docs/04-api-documentation.md)
-- [Log de Progresso](docs/05-progress-log.md)
-
-## 🏗️ Estrutura do Projeto
-
-```
-├── config/             # Configurações do projeto
-├── infraestructure/    # Configurações de infraestrutura
-├── model/             # Modelos de dados
-├── repositories/      # Camada de acesso a dados
-├── service/          # Serviços de negócio
-├── use-cases/        # Casos de uso da aplicação
-├── utils/            # Utilitários
-├── docs/             # Documentação do projeto
-├── handler.js        # Ponto de entrada do Lambda
-└── serverless.yml    # Configuração do Serverless Framework
-```
-
-## 🚀 Executando Localmente
-
-Para executar o projeto localmente:
-
+3. Configure environment variables:
 ```bash
-serverless offline
+cp .env.example .env
 ```
 
-O serviço estará disponível em `http://localhost:3002`
+4. Edit the `.env` file with your credentials:
+```env
+MONGODB_URI=your_mongodb_uri
+AWS_REGION=your_aws_region
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+```
 
-## 📦 Deploy
+## Documentation
 
-Para fazer deploy do serviço:
+The project documentation is available in the `docs/` directory:
 
+- [Project Overview](docs/00-project-overview.md)
+- [System Architecture](docs/01-architecture.md)
+- [System Components](docs/02-components.md)
+- [Development Process](docs/03-development-process.md)
+- [API Documentation](docs/04-api-documentation.md)
+- [Progress Log](docs/05-progress-log.md)
+
+## Development
+
+1. Start the development server:
 ```bash
-serverless deploy
+npm run dev
 ```
 
-## 🔄 Fluxo de Processamento
+2. Run tests:
+```bash
+npm test
+```
 
-1. O worker recebe mensagens da fila SQS `processar-players-statistics-team`
-2. Para cada mensagem recebida:
-   - Conecta ao MongoDB
-   - Processa as estatísticas do jogador
-   - Atualiza os dados no banco
-3. Fecha a conexão com o banco de dados
-4. Retorna status de sucesso ou erro
+3. Build the project:
+```bash
+npm run build
+```
 
-## ⚙️ Configuração do Serverless
+4. Deploy to AWS:
+```bash
+npm run deploy
+```
 
-O arquivo `serverless.yml` configura:
-- Runtime: Node.js 18.x
-- Timeout: 600 segundos
-- Eventos SQS
-- Plugins para desenvolvimento local
+## License
 
-## 🔍 Monitoramento
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-O serviço registra logs no CloudWatch da AWS, incluindo:
-- Erros de processamento
-- Status de execução
-- Tempo de processamento
+## Contributing
 
-## 🤝 Contribuição
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-1. Faça o fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+---
 
-## 📝 Licença
+## Portuguese Version
 
-Este projeto está sob a licença MIT.
+[Versão em Português](docs/README.pt-BR.md)

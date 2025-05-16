@@ -1,17 +1,17 @@
-# Documentação da API
+# API Documentation
 
-## Visão Geral
+## Overview
 
-O League Create Teams Worker é um serviço serverless que processa mensagens de uma fila SQS para criar e atualizar times em ligas. A API é construída usando AWS Lambda e Serverless Framework.
+The League Create Teams Worker is a serverless service that processes messages from an SQS queue to create and update teams in leagues. The API is built using AWS Lambda and Serverless Framework.
 
 ## Endpoints
 
-### Processamento de Estatísticas
+### Statistics Processing
 
 #### POST /process-statistics
-Processa estatísticas de jogadores e atualiza times.
+Processes player statistics and updates teams.
 
-**Fila SQS**: `processar-players-statistics-team`
+**SQS Queue**: `processar-players-statistics-team`
 
 **Payload**:
 ```json
@@ -73,7 +73,7 @@ Processa estatísticas de jogadores e atualiza times.
 }
 ```
 
-**Resposta**:
+**Response**:
 ```json
 {
     "success": "boolean",
@@ -86,38 +86,38 @@ Processa estatísticas de jogadores e atualiza times.
 }
 ```
 
-**Códigos de Status**:
-- 200: Sucesso
-- 400: Dados inválidos
-- 500: Erro interno
+**Status Codes**:
+- 200: Success
+- 400: Invalid data
+- 500: Internal error
 
-## Fluxos de Processamento
+## Processing Flows
 
-### 1. Recebimento de Mensagem
-1. Mensagem recebida da fila SQS
-2. Validação do payload
-3. Extração dos dados
-4. Processamento das estatísticas
-5. Atualização do time
-6. Confirmação do processamento
+### 1. Message Reception
+1. Message received from SQS queue
+2. Payload validation
+3. Data extraction
+4. Statistics processing
+5. Team update
+6. Processing confirmation
 
-### 2. Validações
-1. Dados obrigatórios
-2. Tipos de dados
-3. Ranges válidos
-4. Consistência dos dados
-5. Integridade referencial
+### 2. Validations
+1. Required data
+2. Data types
+3. Valid ranges
+4. Data consistency
+5. Referential integrity
 
-### 3. Tratamento de Erros
-1. Erros de validação
-2. Erros de conexão
-3. Erros de processamento
-4. Erros de atualização
-5. Retry automático
+### 3. Error Handling
+1. Validation errors
+2. Connection errors
+3. Processing errors
+4. Update errors
+5. Automatic retry
 
-## Exemplos de Uso
+## Usage Examples
 
-### Enviar Estatísticas
+### Send Statistics
 ```bash
 aws sqs send-message \
     --queue-url https://sqs.us-east-1.amazonaws.com/123456789012/processar-players-statistics-team \
@@ -136,7 +136,7 @@ aws sqs send-message \
     }'
 ```
 
-### Verificar Status
+### Check Status
 ```bash
 aws cloudwatch get-metric-statistics \
     --namespace AWS/Lambda \
@@ -148,34 +148,34 @@ aws cloudwatch get-metric-statistics \
     --statistics Average
 ```
 
-## Monitoramento
+## Monitoring
 
-### Métricas
-1. Tempo de processamento
-2. Taxa de sucesso
-3. Erros por tipo
-4. Uso de memória
-5. Latência
+### Metrics
+1. Processing time
+2. Success rate
+3. Errors by type
+4. Memory usage
+5. Latency
 
 ### Logs
-1. Logs de execução
-2. Logs de erro
-3. Logs de performance
-4. Logs de acesso
-5. Logs de auditoria
+1. Execution logs
+2. Error logs
+3. Performance logs
+4. Access logs
+5. Audit logs
 
-## Segurança
+## Security
 
-### Autenticação
+### Authentication
 1. IAM roles
-2. Políticas de acesso
-3. Segurança em camadas
-4. Validação de dados
-5. Criptografia
+2. Access policies
+3. Layered security
+4. Data validation
+5. Encryption
 
-### Dados
-1. Validação de entrada
-2. Sanitização de dados
-3. Criptografia em trânsito
-4. Backup automático
-5. Auditoria de acesso 
+### Data
+1. Input validation
+2. Data sanitization
+3. In-transit encryption
+4. Automatic backup
+5. Access audit 
