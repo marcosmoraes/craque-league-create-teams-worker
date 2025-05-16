@@ -1,5 +1,134 @@
 # System Architecture
 
+## Overview
+
+The League Create Teams Worker is a serverless service responsible for processing player statistics and creating teams in leagues. It follows a serverless architecture using AWS Lambda as the main function, with well-defined layers to ensure separation of responsibilities and maintainability.
+
+## Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph "AWS Cloud"
+        subgraph "SQS Queue"
+            SQS[processar-players-statistics-team]
+        end
+
+        subgraph "Lambda Function"
+            Handler[Handler Lambda]
+            Service[Service Layer]
+            Model[Model Layer]
+            DataAccess[Data Access Layer]
+        end
+
+        subgraph "MongoDB"
+            Mongo[(MongoDB)]
+            Teams[(Teams Collection)]
+            Players[(Players Collection)]
+            Stats[(Stats Collection)]
+        end
+    end
+
+    %% External Services
+    FootballAPI[Football API]
+
+    %% Connections
+    SQS -->|Message| Handler
+    Handler -->|Internal| Service
+    Service -->|Internal| Model
+    Model -->|Internal| DataAccess
+    DataAccess -->|MongoDB Driver| Mongo
+    
+    %% External Connections
+    FootballAPI -->|HTTP/REST| Service
+
+    %% Styling
+    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px;
+    classDef lambda fill:#009900,stroke:#232F3E,stroke-width:2px;
+    classDef db fill:#13aa52,stroke:#232F3E,stroke-width:2px;
+    classDef external fill:#666666,stroke:#232F3E,stroke-width:2px;
+
+    class SQS aws;
+    class Handler,Service,Model,DataAccess lambda;
+    class Mongo,Teams,Players,Stats db;
+    class FootballAPI external;
+```
+
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant SQS as SQS Queue
+    participant Handler as Lambda Handler
+    participant Service as Player Statistics Service
+    participant Model as Team Model
+    participant DA as Data Access
+    participant Mongo as MongoDB
+    participant FootballAPI as Football API
+
+    SQS->>Handler: Message received
+    Handler->>DA: connectToDatabase()
+    DA->>Mongo: Connect
+    
+    Handler->>FootballAPI: getPlayerStats()
+    FootballAPI-->>Handler: Return stats
+    
+    Handler->>Service: processPlayerStats()
+    Service-->>Handler: Return processed stats
+    
+    Handler->>Model: createTeamModel()
+    Model-->>Handler: Return model
+    
+    Handler->>Model: Create team instance
+    Model->>Mongo: Save team
+    Mongo-->>Model: Confirm save
+    
+    Handler-->>SQS: Message processed
+```
+
+## System Layers
+
+### 1. API Layer (api/)
+- Responsible for external service integration
+- Implements communication with the football API
+- Manages HTTP requests
+
+### 2. Data Access Layer (data-access/)
+- Manages MongoDB connection
+- Implements CRUD operations in the database
+- Abstracts data access complexity
+
+### 3. Model Layer (model/)
+- Defines data structure
+- Implements basic business rules and validations
+- Creates dynamic models based on team ID
+
+### 4. Service Layer (service/)
+- Implements main business logic
+- Processes player statistics
+- Manages team creation rules
+
+### 5. Handler Layer (handler.js)
+- Lambda function entry point
+- Processes SQS messages
+- Coordinates flow between different layers
+
+## Data Flow
+1. SQS message received by Lambda
+2. Handler processes message and extracts parameters
+3. Service layer coordinates business logic
+4. Data Access layer persists data
+5. Response is returned to SQS
+
+## Security Considerations
+- Credentials stored in environment variables
+- Input data validation
+- Error and exception handling
+
+## Scalability
+- Serverless architecture enables automatic scaling
+- MongoDB connections managed efficiently
+- Asynchronous team processing
+
 ## Architecture Overview
 
 The system is built as a serverless worker that processes messages from an SQS queue to create and update teams in leagues. The architecture follows an asynchronous processing pattern with the following characteristics:
